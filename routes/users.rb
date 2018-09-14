@@ -5,7 +5,6 @@ class UsersController < ApplicationController
 
   post '/' do
     user = User.new(user_params)
-    binding.pry
     if user.valid?
       user.save
       [201, user.values.to_json]

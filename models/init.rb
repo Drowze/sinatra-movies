@@ -1,4 +1,3 @@
-require 'sequel'
-DB = Sequel.connect('sqlite://db/hello-sinatra.development.sqlite3')
+require File.join(settings.root, 'db', 'db')
 
 require_relative 'user'
