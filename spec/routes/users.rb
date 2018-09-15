@@ -3,8 +3,8 @@ require_relative '../spec_helper'
 describe UsersController do
   describe 'GET /' do
     it 'lists all the users' do
-      User.create(name: 'Jonas')
-      User.create(name: 'Jose')
+      FactoryBot.create(:user, name: 'Jonas')
+      FactoryBot.create(:user, name: 'Jose')
 
       get '/'
       json_response = JSON.parse(last_response.body, symbolize_names: true)
@@ -15,7 +15,8 @@ describe UsersController do
 
   describe 'POST /' do
     context 'when the params are valid' do
-      let(:params) {{ user: { name: 'Lucas' } }}
+      let(:params) {{ user: { name: 'Lucas', age: 12, gender: 0, latitude: 15, longitude: 16 } }}
+
       it 'creates the user' do
         expect { post('/', params.to_json) }
           .to change { User.count }.from(0).to(1)
@@ -24,7 +25,14 @@ describe UsersController do
       it 'returns the serialized user' do
         post('/', params.to_json)
         json_response = JSON.parse(last_response.body, symbolize_names: true)
-        expect(json_response).to include({ id: a_kind_of(Integer), name: 'Lucas' })
+        expect(json_response).to include(
+          id: a_kind_of(Integer),
+          name: 'Lucas',
+          age: 12,
+          gender: 0,
+          latitude: 15,
+          longitude: 16
+        )
       end
     end
 
