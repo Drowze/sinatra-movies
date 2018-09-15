@@ -31,6 +31,8 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    @user_params ||= json_params.fetch(:user, {}).slice(:name)
+    @user_params ||=
+      json_params.fetch(:user, {})
+                 .slice(:name, :age, :gender, :latitude, :longitude)
   end
 end

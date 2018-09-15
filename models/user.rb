@@ -3,6 +3,6 @@ class User < Sequel::Model
 
   def validate
     super
-    validates_presence :name
+    validates_presence [:name, :age, :gender, :latitude, :longitude]
   end
 end
