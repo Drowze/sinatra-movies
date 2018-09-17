@@ -15,6 +15,8 @@ end
 RSpec.configure do |c|
   c.include RSpecMixin
 
+  c.filter_run_when_matching :focus
+
   c.before(:suite) do
     FactoryBot.definition_file_paths = [File.join(__dir__, 'support', 'factories')]
     FactoryBot.find_definitions
