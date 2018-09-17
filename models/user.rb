@@ -1,5 +1,6 @@
 class User < Sequel::Model
   plugin :validation_helpers
+  one_to_one :backpack
 
   def validate
     super
