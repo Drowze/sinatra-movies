@@ -9,18 +9,20 @@ class UsersController < ApplicationController
       user.save
       [201, user.values.to_json]
     else
-      [422, user.errors.to_json]
+      [422, { errors: user.errors }.to_json]
     end
   end
 
   patch '/:id' do
+    return [404, { errors: ['entity not found'] }.to_json] if target_user.nil?
+    return [422, { errors: ['malformed parameters'] }.to_json] if user_params.empty?
     target_user.values.merge!(user_params)
 
     if target_user.valid?
       target_user.save
       [200, target_user.values.to_json]
     else
-      [422, target_user.errors.to_json]
+      [422, { errors: target_user.errors.to_json }.to_json]
     end
   end
 
